@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+This is the import process
+
+```{r}
+library(readr)
+library(tidyverse)
+simulated_patient_data <- read_csv("https://github.com/philbowsher/Foundation-of-the-R-Workflow-workshop-2019-09-06/raw/master/Examples/data/simulated_patient_data.csv")
+```
+
+This is the data viz
+
+```{r}
+simulated_patient_data %>%
+ filter(birthdate >= "1965-02-17" & birthdate <= "2020-11-09") %>%
+ 
+    filter(marital %in% "S" | is.na(marital)) %>%
+ ggplot() +
+ aes(x = race, fill = gender) +
+ geom_bar() +
+ scale_fill_hue() +
+ theme_minimal()
+
+```
+
+Interactive data viz
+
+```{r}
+library(ggplot2)
+library(plotly)
+p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
+            geom_bar(position = "dodge")
+ggplotly(p)
+
+```
+
